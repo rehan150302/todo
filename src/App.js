@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AddTaskForm from './components/AddTaskForm';
 import UpdateForm from './components/UpdateForm';
 import ToDO from './components/ToDo';
@@ -57,6 +57,17 @@ function App() {
     setToDo(updatedObject);
     setUpdateData('');
   }
+
+  useEffect(() => {
+    const todos = JSON.parse(localStorage.getItem( "todos" ));
+    if(todos && todos.length > 0){
+      setToDo(todos);
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(toDo));
+  },[toDo])
 
   return (
     <div className=" container App">
